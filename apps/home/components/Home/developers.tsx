@@ -1,5 +1,5 @@
 import { Box, Flex, Grid, Heading, Link, Text } from '@chakra-ui/react'
-import { Logo, GithubIcon, MirrorIcon } from 'ui'
+import { Logo, GithubIcon, MirrorIcon, RightArrowIcon } from 'ui'
 import { RollingBackground } from './rollingSubtitles'
 import { GITHUB_URL, MIRROR_URL } from '../../constants/env'
 
@@ -22,42 +22,50 @@ export const Developers: React.FC = () => (
       pt="60px"
       position="relative"
       zIndex={1}
+      px="20px"
     >
       <Logo
-        iconProps={{ w: '50px', h: '50px' }}
-        textProps={{ w: '135px', h: '42px' }}
+        iconProps={{
+          w: { base: '24px', md: '50px' },
+          h: { base: '24px', md: '50px' },
+        }}
+        textProps={{
+          w: { base: '65px', md: '135px' },
+          h: { base: '20px', md: '42px' },
+        }}
         h="50px"
         w="auto"
         mx="auto"
       />
-      <Heading fontSize="48px" lineHeight="128%" mt="70px">
+      <Heading
+        fontSize={{ base: '24px', md: '48px' }}
+        lineHeight="128%"
+        mt={{ base: '30px', md: '70px' }}
+      >
         mail <sup>3</sup> me button
       </Heading>
       <Text
         textAlign="center"
-        fontSize="26px"
-        lineHeight="36px"
+        fontSize={{ base: '14px', md: '26px' }}
+        lineHeight={{ base: '18px', md: '36px' }}
         fontWeight="300"
       >
         Embed decentralized communication features for your own product
       </Text>
       <Grid
-        templateColumns="repeat(2, 373px)"
-        templateRows="225px"
+        templateColumns={{ base: '100%', md: 'repeat(2, 373px)' }}
+        templateRows={{ base: 'repeat(2, 62px)', md: '225px' }}
         gap="20px"
         mt="47px"
+        fontSize={{ base: '14px', md: '20px' }}
+        textAlign={{ base: 'left', md: 'center' }}
         css={`
           .item {
             background-color: #ffffff;
             box-shadow: 0 0 7px rgba(0, 0, 0, 0.25);
             border-radius: 16px;
             align-items: center;
-            justify-content: center;
-            font-size: 20px;
             line-height: 26px;
-            flex-direction: column;
-            padding: 0 26px;
-            text-align: center;
             display: flex;
           }
           .item:hover {
@@ -66,13 +74,41 @@ export const Developers: React.FC = () => (
           }
         `}
       >
-        <Link className="item" href={MIRROR_URL} target="_blank">
-          <MirrorIcon w="48px" h="48px" />
-          <Text mt="17px">View our best access cases on mirror</Text>
+        <Link
+          className="item"
+          href={MIRROR_URL}
+          target="_blank"
+          flexDirection={{ base: 'row', md: 'column' }}
+          justifyContent={{ base: 'flex-start', md: 'center' }}
+          px={{ base: '17px', md: '26px' }}
+        >
+          <MirrorIcon w={{ base: '32px', md: '48px' }} h="auto" />
+          <Text mt={{ base: 0, md: '17px' }} ml={{ base: '10px', md: 0 }}>
+            View our best access cases on mirror
+          </Text>
+          <RightArrowIcon
+            display={{ base: 'inline-block', md: 'none' }}
+            w="20px"
+            ml="auto"
+          />
         </Link>
-        <Link className="item" href={GITHUB_URL} target="_blank">
-          <GithubIcon w="48px" h="48px" />
-          <Text mt="17px">Check out the mail me button access on Github</Text>
+        <Link
+          className="item"
+          href={GITHUB_URL}
+          target="_blank"
+          flexDirection={{ base: 'row', md: 'column' }}
+          justifyContent={{ base: 'flex-start', md: 'center' }}
+          px={{ base: '17px', md: '26px' }}
+        >
+          <GithubIcon w={{ base: '32px', md: '48px' }} h="auto" />
+          <Text mt={{ base: 0, md: '17px' }} ml={{ base: '10px', md: 0 }}>
+            Check out the mail me button access on Github
+          </Text>
+          <RightArrowIcon
+            display={{ base: 'inline-block', md: 'none' }}
+            w="20px"
+            ml="auto"
+          />
         </Link>
       </Grid>
     </Flex>
