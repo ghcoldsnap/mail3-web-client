@@ -12,6 +12,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
+import { TrackEvent, useTrackClick } from 'hooks'
 import { InboxNav } from '../components/Inbox/Nav'
 import { PaperContainer } from '../components/PaperContainer'
 import DevelopersMail3MeButtonExamplePng from '../assets/developers-mail3-me-button-example.png'
@@ -19,6 +20,8 @@ import { GITHUB_URL, MIRROR_URL } from '../constants'
 
 export const Developers: React.FC = () => {
   const [t] = useTranslation('developers')
+  const trackClickMmbMirror = useTrackClick(TrackEvent.ClickMmbMirror)
+  const trackClickMmbGithub = useTrackClick(TrackEvent.ClickMmbGithub)
   return (
     <Box pt={{ base: '25px', md: '35px' }}>
       <PageContainer>
@@ -86,7 +89,14 @@ export const Developers: React.FC = () => {
               }
             `}
           >
-            <Link className="item" href={MIRROR_URL} target="_blank">
+            <Link
+              className="item"
+              href={MIRROR_URL}
+              target="_blank"
+              onClick={() => {
+                trackClickMmbMirror()
+              }}
+            >
               <MirrorIcon w="28px" h="28px" />
               <Box ml={{ base: '7px', md: '18px' }}>{t('mirror')}</Box>
               <RightArrowIcon
@@ -95,7 +105,14 @@ export const Developers: React.FC = () => {
                 ml="auto"
               />
             </Link>
-            <Link className="item" href={GITHUB_URL} target="_blank">
+            <Link
+              className="item"
+              href={GITHUB_URL}
+              target="_blank"
+              onClick={() => {
+                trackClickMmbGithub()
+              }}
+            >
               <GithubIcon w="28px" h="28px" />
               <Box ml={{ base: '7px', md: '18px' }}>{t('github')}</Box>
               <RightArrowIcon

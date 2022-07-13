@@ -84,6 +84,10 @@ export enum TrackEvent {
   OpenDriftbottleMail = 'open_driftbottle_mail',
 
   ClickENSRefresh = 'click_ENS_refresh',
+
+  // mmb
+  ClickMmbMirror = 'click_mmb_mirror',
+  ClickMmbGithub = 'click_mmb_github',
 }
 
 // dimensions
