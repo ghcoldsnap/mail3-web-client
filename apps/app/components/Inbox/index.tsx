@@ -10,7 +10,7 @@ import { useAPI } from '../../hooks/useAPI'
 import { RoutePath } from '../../route/path'
 import { MailboxMessageItemResponse } from '../../api'
 import { Loading } from '../Loading'
-import { InboxNav, InboxNavType } from './Nav'
+import { InboxNav } from './Nav'
 import { Mailbox, AvatarBadgeType, ItemType, MessageItem } from '../Mailbox'
 import { InfiniteHandle, InfiniteMailbox } from '../InfiniteMailbox'
 import { EmptyStatus, NoNewStatus, ThisBottomStatus } from '../MailboxStatus'
@@ -196,7 +196,7 @@ export const InboxComponent: React.FC = () => {
       )}
       <Box paddingTop={{ base: '25px', md: '35px' }}>
         <FlexButtonBox>
-          <InboxNav currentType={InboxNavType.Inbox} />
+          <InboxNav />
           <Button
             className="btn-write"
             onClick={() => {

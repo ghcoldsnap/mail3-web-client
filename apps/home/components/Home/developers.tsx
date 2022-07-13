@@ -1,7 +1,6 @@
 import { Box, Flex, Grid, Heading, Link, Text } from '@chakra-ui/react'
-import { Logo } from 'ui'
+import { Logo, GithubIcon, MirrorIcon } from 'ui'
 import { RollingBackground } from './rollingSubtitles'
-import { GithubIcon, MirrorIcon } from '../SocialIcons'
 import { GITHUB_URL, MIRROR_URL } from '../../constants/env'
 
 export const Developers: React.FC = () => (

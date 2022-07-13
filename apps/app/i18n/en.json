@@ -212,5 +212,17 @@
         "join-community": "Join Community",
         "connect-wallet": "Connect Wallet",
         "enter-app": "Enter App"
+    },
+    "developers": {
+        "title": "For Developers",
+        "example-title": "mail³ me button",
+        "example-description": "Embed decentralized communication features for your own product",
+        "github": "View our best access cases on mirror",
+        "mirror": "Check out the mail me button access on Github"
+    },
+    "inbox-nav": {
+        "inbox": "Inbox",
+        "subscription": "Subscription",
+        "developers": "Developers"
     }
 }

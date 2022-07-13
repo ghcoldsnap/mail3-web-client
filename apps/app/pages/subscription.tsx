@@ -6,7 +6,7 @@ import { Box } from '@chakra-ui/react'
 import { TrackEvent, useTrackClick } from 'hooks'
 import { Navbar } from '../components/Navbar'
 import { FlexButtonBox, MailboxContainer } from '../components/Inbox'
-import { InboxNav, InboxNavType } from '../components/Inbox/Nav'
+import { InboxNav } from '../components/Inbox/Nav'
 import { RoutePath } from '../route/path'
 import { SubscriptionBody } from '../components/SubscriptionBody'
 import { ReactComponent as SVGWrite } from '../assets/mailbox/write.svg'
@@ -82,7 +82,7 @@ export const SubscriptionPage = () => {
       <NewPageContainer>
         <Box paddingTop={{ base: '25px', md: '35px' }}>
           <FlexButtonBox>
-            <InboxNav currentType={InboxNavType.Subscription} />
+            <InboxNav />
             <Button
               className="btn-write"
               onClick={() => {
