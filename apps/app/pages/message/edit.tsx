@@ -313,6 +313,11 @@ export const NewMessagePage = () => {
     return redirectHome()
   }
 
+  const isLoadingContent =
+    !messageData ||
+    isLoadingAttachments ||
+    !!queryMessageInfoAndContentData?.isLoading
+
   return (
     <>
       {/* <Head>
@@ -333,11 +338,7 @@ export const NewMessagePage = () => {
             signatureStatus === SignatureStatus.OnlyImage ||
             signatureStatus === SignatureStatus.BothEnabled
           }
-          isLoading={
-            messageData
-              ? false
-              : queryMessageInfoAndContentData.isLoading || isLoadingAttachments
-          }
+          isLoading={isLoadingContent}
         />
       </Box>
     </>
