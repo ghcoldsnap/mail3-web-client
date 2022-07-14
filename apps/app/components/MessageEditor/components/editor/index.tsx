@@ -145,7 +145,7 @@ const Footer = () => {
           await new Promise((r) => {
             setTimeout(r, 200)
           })
-          navi(leavingUrl)
+          navi(leavingUrl, { replace: true })
           await setIsLeavingWithoutSave(false)
         }}
         doNotSaveButtonLoading={isLeavingWithoutSave}
@@ -155,7 +155,7 @@ const Footer = () => {
           try {
             await setIsAllowLeave(true)
             await onSave(getHTML())
-            navi(leavingUrl)
+            navi(leavingUrl, { replace: true })
             onCloseLeaveEditorModal()
           } catch (err) {
             toast(t('draft.failed'))
