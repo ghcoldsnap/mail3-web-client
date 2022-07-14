@@ -12,12 +12,8 @@ import { GetMessageContent } from 'models/src/getMessageContent'
 import { MessageEditor } from '../../components/MessageEditor'
 import { useSubject } from '../../components/MessageEditor/hooks/useSubject'
 import { userPropertiesAtom } from '../../hooks/useLogin'
-import {
-  AttachmentExtraInfo,
-  useAttachment,
-} from '../../components/MessageEditor/hooks/useAttachment'
+import { useAttachment } from '../../components/MessageEditor/hooks/useAttachment'
 import { useAPI } from '../../hooks/useAPI'
-import { convertBlobToBase64 } from '../../utils/file'
 import { useSaveMessage } from '../../components/MessageEditor/hooks/useSaveMessage'
 import { replaceHtmlAttachImageSrc } from '../../utils/editor'
 import { DRIFT_BOTTLE_ADDRESS } from '../../constants'
@@ -90,7 +86,6 @@ export const NewMessagePage = () => {
     signatureStatus === SignatureStatus.OnlyText ||
     signatureStatus === SignatureStatus.BothEnabled
   const [isLoadedSubjectInfo, setIsLoadedSubjectInfo] = useState(false)
-  const [isLoadingAttachments, setIsLoadingAttachments] = useState(false)
   const {
     setSubject,
     setToAddresses,
@@ -100,10 +95,10 @@ export const NewMessagePage = () => {
     onReset,
   } = useSubject()
   const {
-    setAttachmentExtraInfo,
-    setAttachments,
     onResetAttachments,
     attachments,
+    isLoadingAttachments,
+    loadAttachments,
   } = useAttachment()
   const { onResetSavingAtom } = useSaveMessage()
 
@@ -164,48 +159,9 @@ export const NewMessagePage = () => {
         setBccAddresses(messageInfo.bcc.map((item) => item.address))
       }
     }
-    if (!messageInfo.attachments) return
-    setAttachments(
-      messageInfo.attachments.map((a) => ({
-        filename: a.filename,
-        contentType: a.contentType,
-        cid: a.contentId,
-        content: '',
-        contentDisposition: a.inline ? 'inline' : 'attachment',
-      }))
-    )
-    setAttachmentExtraInfo(
-      messageInfo.attachments.reduce<{
-        [key: string]: AttachmentExtraInfo
-      }>(
-        (acc, cur) => ({
-          ...acc,
-          [cur.contentId]: { downloadProgress: 0 },
-        }),
-        {}
-      )
-    )
-    setIsLoadingAttachments(true)
-    await Promise.all(
-      messageInfo.attachments.map((attachment, i) =>
-        api
-          .downloadAttachment(messageInfo.id, attachment.id)
-          .then((res) => convertBlobToBase64(res.data))
-          .then((base64) => {
-            setAttachmentExtraInfo((o) => ({
-              ...o,
-              [attachment.contentId]: { downloadProgress: 1 },
-            }))
-            setAttachments((a) => {
-              // eslint-disable-next-line no-param-reassign,prefer-destructuring
-              a[i].content = base64.split(',')[1]
-              return a.concat([])
-            })
-          })
-          .catch(() => {})
-      )
-    )
-    setIsLoadingAttachments(false)
+    if (messageInfo.attachments) {
+      await loadAttachments(messageInfo.id, messageInfo.attachments)
+    }
   }
 
   useDidMount(() => {
