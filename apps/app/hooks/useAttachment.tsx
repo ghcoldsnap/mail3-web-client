@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { Dispatch, SetStateAction, useCallback, useState } from 'react'
 import { GetMessage } from 'models/src/getMessage'
 import { SubmitMessage } from 'models/src/submitMessage'
 import { get, set } from 'idb-keyval'
@@ -11,9 +11,12 @@ export interface AttachmentExtraInfo {
 
 const generateAttachmentIndexedDBKey = (id: string) => `attachment:${id}`
 
-export function useAttachment() {
+type Attachments = SubmitMessage.Attachment[]
+
+export function useAttachment(
+  setAttachments: Dispatch<SetStateAction<Attachments>>
+) {
   const api = useAPI()
-  const [attachments, setAttachments] = useState<SubmitMessage.Attachment[]>([])
   const [isLoadingAttachments, setIsLoadingAttachments] = useState(false)
   const [attachmentExtraInfo, setAttachmentExtraInfo] = useState<{
     [key: string]: AttachmentExtraInfo
@@ -92,12 +95,10 @@ export function useAttachment() {
       )
       setIsLoadingAttachments(false)
     },
-    [setAttachments]
+    [setAttachments, api]
   )
 
   return {
-    attachments,
-    setAttachments,
     attachmentExtraInfo,
     setAttachmentExtraInfo,
     isLoadingAttachments,

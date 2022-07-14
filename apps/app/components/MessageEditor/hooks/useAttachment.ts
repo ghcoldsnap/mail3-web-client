@@ -1,6 +1,5 @@
 import { atomWithReset, useResetAtom } from 'jotai/utils'
 import { useAtom } from 'jotai'
-import { useEffect } from 'react'
 import { SubmitMessage } from 'models/src/submitMessage'
 import { useAttachment as useGenericAttachment } from '../../../hooks/useAttachment'
 
@@ -14,21 +13,13 @@ const attachmentExtraInfoAtom = atomWithReset<{
 }>({})
 
 export function useAttachment() {
-  const {
-    attachments: genericAttachments,
-    loadAttachments,
-    isLoadingAttachments,
-  } = useGenericAttachment()
-
   const [attachments, setAttachments] = useAtom(attachmentsAtom)
+  const { loadAttachments, isLoadingAttachments } =
+    useGenericAttachment(setAttachments)
   const [attachmentExtraInfo, setAttachmentExtraInfo] = useAtom(
     attachmentExtraInfoAtom
   )
   const onResetAttachments = useResetAtom(attachmentsAtom)
-
-  useEffect(() => {
-    setAttachments(genericAttachments)
-  }, [genericAttachments])
 
   return {
     attachments,
