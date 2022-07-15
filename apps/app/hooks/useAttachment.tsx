@@ -1,7 +1,10 @@
 import { Dispatch, SetStateAction, useCallback, useState } from 'react'
 import { GetMessage } from 'models/src/getMessage'
 import { SubmitMessage } from 'models/src/submitMessage'
-import { get, set } from 'idb-keyval'
+import {
+  get as getIndexedDbStorage,
+  set as setIndexedDbStorage,
+} from 'idb-keyval'
 import { convertBlobToBase64 } from '../utils/file'
 import { useAPI } from './useAPI'
 
@@ -32,15 +35,19 @@ export function useGetAttachment() {
   >(
     async (messageId, attachmentId) => {
       const key = generateAttachmentIndexedDBKey(attachmentId)
-      const readAttachmentBase64FromIndexedDb = (await get(key)) as
-        | string
-        | undefined
+      const readAttachmentBase64FromIndexedDb = (await getIndexedDbStorage(
+        key
+      )) as string | undefined
       if (!readAttachmentBase64FromIndexedDb) {
         const apiBase64 = await api
           .downloadAttachment(messageId, attachmentId)
           .then((res) =>
             convertBlobToBase64(res.data).then((b) => b.split(',')[1])
           )
+          .then((base64) => {
+            setIndexedDbStorage(key, base64)
+            return base64
+          })
         return {
           base64: apiBase64,
           from: AttachmentContentFrom.Api,
@@ -92,10 +99,7 @@ export function useAttachment(
       )
       await Promise.all(
         shouldLoadAttachments.map(async (a, i) => {
-          const { key, base64, from } = await downloadOrReadCacheAttachment(
-            id,
-            a.id
-          )
+          const { base64 } = await downloadOrReadCacheAttachment(id, a.id)
           setAttachmentExtraInfo((o) => ({
             ...o,
             [a.contentId]: { downloadProgress: 1 },
@@ -103,9 +107,6 @@ export function useAttachment(
           setAttachments((oldStateAttachments) => {
             // eslint-disable-next-line no-param-reassign,prefer-destructuring
             oldStateAttachments[i].content = base64
-            if (from === 'api') {
-              set(key, base64)
-            }
             return oldStateAttachments.concat([])
           })
         })
