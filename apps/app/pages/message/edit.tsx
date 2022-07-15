@@ -141,7 +141,7 @@ export const NewMessagePage = () => {
     return getToAddressByMessageInfo().concat(to || [])
   }
 
-  async function setSubjectAndOtherByMessageInfo(
+  function setSubjectAndOtherByMessageInfo(
     messageInfo?: GetMessage.Response | null
   ) {
     if (!messageInfo) return
@@ -159,9 +159,6 @@ export const NewMessagePage = () => {
       if (messageInfo.bcc) {
         setBccAddresses(messageInfo.bcc.map((item) => item.address))
       }
-    }
-    if (messageInfo.attachments) {
-      await loadAttachments(messageInfo.id, messageInfo.attachments)
     }
   }
 
@@ -229,6 +226,9 @@ export const NewMessagePage = () => {
       setIsFirstLoadMessage(true)
     }
     setSubjectAndOtherByMessageInfo(messageInfo)
+    if (messageInfo?.attachments) {
+      loadAttachments(messageInfo.id, messageInfo.attachments)
+    }
   }, [messageInfo])
 
   useEffect(() => {
@@ -269,10 +269,9 @@ export const NewMessagePage = () => {
     return redirectHome()
   }
 
-  const isLoadingContent =
-    !messageData ||
-    isLoadingAttachments ||
-    !!queryMessageInfoAndContentData?.isLoading
+  const isLoadingContent = !messageData
+    ? isLoadingAttachments
+    : isLoadingAttachments || !!queryMessageInfoAndContentData?.isLoading
 
   return (
     <>
