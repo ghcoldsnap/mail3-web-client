@@ -17,6 +17,7 @@ import { InboxNav } from '../components/Inbox/Nav'
 import { PaperContainer } from '../components/PaperContainer'
 import DevelopersMail3MeButtonExamplePng from '../assets/developers-mail3-me-button-example.png'
 import { GITHUB_URL, MIRROR_URL } from '../constants'
+import { GoToWriteMailButton } from '../components/GoToWriteMailButton'
 
 export const Developers: React.FC = () => {
   const [t] = useTranslation('developers')
@@ -25,7 +26,10 @@ export const Developers: React.FC = () => {
   return (
     <Box pt={{ base: '25px', md: '35px' }}>
       <PageContainer>
-        <InboxNav />
+        <Flex justify="space-between">
+          <InboxNav />
+          <GoToWriteMailButton />
+        </Flex>
       </PageContainer>
 
       <PaperContainer>
@@ -50,6 +54,7 @@ export const Developers: React.FC = () => {
                 w="214px"
                 h="92px"
                 mb="29px"
+                objectFit="contain"
               />
             </Center>
             <Box
