@@ -2,13 +2,21 @@ import { Box, Flex, Grid, Heading, Link, Text } from '@chakra-ui/react'
 import { Logo, GithubIcon, MirrorIcon, RightArrowIcon } from 'ui'
 import { TrackEvent, useTrackClick } from 'hooks'
 import { RollingBackground } from './rollingSubtitles'
-import { GITHUB_URL, MIRROR_URL } from '../../constants/env'
+import {
+  MAIL3_ME_BUTTON_GITHUB_URL,
+  MAIL3_ME_BUTTON_MIRROR_URL,
+} from '../../constants/env'
 
 export const Developers: React.FC = () => {
   const trackClickMmbMirror = useTrackClick(TrackEvent.ClickMmbMirror)
   const trackClickMmbGithub = useTrackClick(TrackEvent.ClickMmbGithub)
   return (
-    <Box position="relative" h="611px" overflow="hidden">
+    <Box
+      position="relative"
+      overflow="hidden"
+      pb="86px"
+      h={{ base: 'auto', md: '611px' }}
+    >
       <RollingBackground
         count={1}
         position="absolute"
@@ -46,7 +54,7 @@ export const Developers: React.FC = () => {
           lineHeight="128%"
           mt={{ base: '30px', md: '70px' }}
         >
-          mail <sup>3</sup> me button
+          mail<sup>3</sup> me button
         </Heading>
         <Text
           textAlign="center"
@@ -80,7 +88,7 @@ export const Developers: React.FC = () => {
         >
           <Link
             className="item"
-            href={MIRROR_URL}
+            href={MAIL3_ME_BUTTON_MIRROR_URL}
             target="_blank"
             flexDirection={{ base: 'row', md: 'column' }}
             justifyContent={{ base: 'flex-start', md: 'center' }}
@@ -101,7 +109,7 @@ export const Developers: React.FC = () => {
           </Link>
           <Link
             className="item"
-            href={GITHUB_URL}
+            href={MAIL3_ME_BUTTON_GITHUB_URL}
             target="_blank"
             flexDirection={{ base: 'row', md: 'column' }}
             justifyContent={{ base: 'flex-start', md: 'center' }}
@@ -112,7 +120,7 @@ export const Developers: React.FC = () => {
           >
             <GithubIcon w={{ base: '32px', md: '48px' }} h="auto" />
             <Text mt={{ base: 0, md: '17px' }} ml={{ base: '10px', md: 0 }}>
-              Check out the mail me button access on Github
+              Check out the mail<sup>3</sup> me button access on Github
             </Text>
             <RightArrowIcon
               display={{ base: 'inline-block', md: 'none' }}

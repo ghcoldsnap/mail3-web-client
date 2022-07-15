@@ -20,6 +20,13 @@ export const CONTACT_US_URL =
 export const GITHUB_URL =
   process.env.NEXT_PUBLIC_GITHUB_URL || 'https://github.com/mail3protocol'
 
+export const MAIL3_ME_BUTTON_GITHUB_URL =
+  process.env.NEXT_PUBLIC_MAIL3_ME_BUTTON_URL ||
+  'https://github.com/mail3protocol/mail3-me-butto'
+export const MAIL3_ME_BUTTON_MIRROR_URL =
+  process.env.NEXT_PUBLIC_MAIL3_ME_BUTTON_MIRRIR_URL ||
+  'https://mirror.xyz/mail3.eth/nTiZI4w3vB1BBjwc8ZLUHCJ2FPhaYJd-l7v62Tv_FY0'
+
 export const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
 
 export const MAIL_SERVER_URL =

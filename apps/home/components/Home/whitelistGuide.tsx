@@ -19,6 +19,7 @@ export const WhitelistGuide = () => {
       pb={{ base: '100px', md: '131px' }}
       mx="auto"
       textAlign={{ base: 'center', md: 'left' }}
+      bg="#fff"
     >
       <Heading fontSize={{ base: '24px', md: '48px' }}>
         Now, hit the Mail3 Beta
