@@ -1,3 +1,4 @@
+// @ts-nocheck
 export const SERVER_URL =
   import.meta.env.NEXT_PUBLIC_SERVER_URL || 'https://api.mail3.me/api/v1'
 
@@ -43,3 +44,7 @@ export const DRIFT_BOTTLE_ADDRESS =
 
 export const GOOGLE_ANALYTICS_MODE =
   import.meta.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MODE === 'true' || false
+
+export const IS_IPHONE =
+  navigator.userAgent.toLowerCase().includes('iphone') &&
+  !navigator.vendor.includes('Google')
