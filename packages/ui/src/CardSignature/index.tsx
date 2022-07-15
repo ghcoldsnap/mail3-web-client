@@ -58,7 +58,14 @@ export const CardSignature = React.forwardRef<
     <Flex position="absolute" bottom="0" left="-10px" zIndex={2}>
       <RowImage src={StampPng} width="163px" height="144px" />
     </Flex>
-    <Flex position="absolute" bottom="45px" right="45px" zIndex={2}>
+    <Flex
+      position="absolute"
+      bottom="47px"
+      right="50px"
+      w="95px"
+      h="20px"
+      zIndex={2}
+    >
       <Text
         fontSize="12px"
         w="95px"
