@@ -3,8 +3,8 @@ import { Flex, Center, Text, Image as RowImage } from '@chakra-ui/react'
 import StampBg from 'assets/svg/stamp-bg.svg'
 import StampPng from 'assets/png/stamp.png'
 import QrCode from 'qrcode.react'
-import { MAIL_SERVER_URL } from 'app/constants'
-import { Avatar } from '../Avatar'
+import { Avatar } from 'ui/src/Avatar'
+import { MAIL_SERVER_URL } from '../../constants'
 
 const stampBg = StampBg as any
 
