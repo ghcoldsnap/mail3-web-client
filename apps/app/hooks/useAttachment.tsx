@@ -13,6 +13,50 @@ const generateAttachmentIndexedDBKey = (id: string) => `attachment:${id}`
 
 type Attachments = SubmitMessage.Attachment[]
 
+export enum AttachmentContentFrom {
+  Api = 'api',
+  IndexedDb = 'indexeddb',
+}
+
+export function useGetAttachment() {
+  const api = useAPI()
+  return useCallback<
+    (
+      messageId: string,
+      attachmentId: string
+    ) => Promise<{
+      base64: string
+      from: AttachmentContentFrom
+      key: string
+    }>
+  >(
+    async (messageId, attachmentId) => {
+      const key = generateAttachmentIndexedDBKey(attachmentId)
+      const readAttachmentBase64FromIndexedDb = (await get(key)) as
+        | string
+        | undefined
+      if (!readAttachmentBase64FromIndexedDb) {
+        const apiBase64 = await api
+          .downloadAttachment(messageId, attachmentId)
+          .then((res) =>
+            convertBlobToBase64(res.data).then((b) => b.split(',')[1])
+          )
+        return {
+          base64: apiBase64,
+          from: AttachmentContentFrom.Api,
+          key,
+        }
+      }
+      return {
+        base64: readAttachmentBase64FromIndexedDb,
+        from: AttachmentContentFrom.IndexedDb,
+        key,
+      }
+    },
+    [api]
+  )
+}
+
 export function useAttachment(
   setAttachments: Dispatch<SetStateAction<Attachments>>
 ) {
@@ -21,6 +65,7 @@ export function useAttachment(
   const [attachmentExtraInfo, setAttachmentExtraInfo] = useState<{
     [key: string]: AttachmentExtraInfo
   }>({})
+  const downloadOrReadCacheAttachment = useGetAttachment()
 
   const loadAttachments = useCallback(
     async (id: string, shouldLoadAttachments: GetMessage.Attachment[]) => {
@@ -47,50 +92,22 @@ export function useAttachment(
       )
       await Promise.all(
         shouldLoadAttachments.map(async (a, i) => {
-          const key = generateAttachmentIndexedDBKey(a.id)
-          return (
-            get(key)
-              // 1. Find from `IndexedDb`, if not, get from `Api`
-              .then(
-                async (
-                  readAttachmentFromIndexedDb: SubmitMessage.Attachment
-                ) => {
-                  if (!readAttachmentFromIndexedDb) {
-                    const apiBase64 = await api
-                      .downloadAttachment(id, a.id)
-                      .then((res) =>
-                        convertBlobToBase64(res.data).then(
-                          (b) => b.split(',')[1]
-                        )
-                      )
-                    return {
-                      base64: apiBase64,
-                      from: 'api',
-                    }
-                  }
-                  return {
-                    base64: readAttachmentFromIndexedDb.content,
-                    from: 'indexeddb',
-                  }
-                }
-              )
-              // 2. Set local variables
-              .then(({ base64, from }) => {
-                setAttachmentExtraInfo((o) => ({
-                  ...o,
-                  [a.contentId]: { downloadProgress: 1 },
-                }))
-                setAttachments((oldStateAttachments) => {
-                  // eslint-disable-next-line no-param-reassign,prefer-destructuring
-                  oldStateAttachments[i].content = base64
-                  if (from === 'api') {
-                    set(key, oldStateAttachments[i])
-                  }
-                  return oldStateAttachments.concat([])
-                })
-              })
-              .catch(() => {})
+          const { key, base64, from } = await downloadOrReadCacheAttachment(
+            id,
+            a.id
           )
+          setAttachmentExtraInfo((o) => ({
+            ...o,
+            [a.contentId]: { downloadProgress: 1 },
+          }))
+          setAttachments((oldStateAttachments) => {
+            // eslint-disable-next-line no-param-reassign,prefer-destructuring
+            oldStateAttachments[i].content = base64
+            if (from === 'api') {
+              set(key, base64)
+            }
+            return oldStateAttachments.concat([])
+          })
         })
       )
       setIsLoadingAttachments(false)
