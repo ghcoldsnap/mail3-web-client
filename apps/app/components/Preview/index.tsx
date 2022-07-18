@@ -23,7 +23,6 @@ import {
 import { useTranslation } from 'react-i18next'
 import { ChevronLeftIcon } from '@chakra-ui/icons'
 import { GetMessage } from 'models/src/getMessage'
-import { GetMessageContent } from 'models/src/getMessageContent'
 import { SuspendButton, SuspendButtonType } from '../SuspendButton'
 import { useAPI } from '../../hooks/useAPI'
 import { MessageFlagAction, MessageFlagType, AddressResponse } from '../../api'
@@ -101,17 +100,10 @@ export const PreviewComponent: React.FC = () => {
             api.getMessageInfo(id as string)
           )
         : null
-      const messageContent = messageInfo?.text.id
-        ? await catchApiResponse<GetMessageContent.Response>(
-            api.getMessageContent(messageInfo?.text.id)
-          )
-        : null
       return {
-        info: messageInfo,
-        html: messageContent?.html,
-        plain: messageContent?.plain,
+        html: messageInfo?.text.html,
+        plain: messageInfo?.text.plain,
         messageInfo,
-        messageContent,
       }
     },
     {
@@ -121,7 +113,7 @@ export const PreviewComponent: React.FC = () => {
       cacheTime: Infinity,
       onSuccess(d) {
         if (typeof id !== 'string') return
-        const messageInfo = d.info
+        const { messageInfo } = d
         if (messageInfo?.unseen) {
           if (
             messageInfo.from.address.startsWith('mail3dao.eth') &&
@@ -136,8 +128,9 @@ export const PreviewComponent: React.FC = () => {
             trackShowYourNft()
           }
         }
-        const isSeen = d.info?.flags.includes(MessageFlagType.Seen)
-        const isFromDriftBottle = d.info?.from.address === DRIFT_BOTTLE_ADDRESS
+        const isSeen = d.messageInfo?.flags.includes(MessageFlagType.Seen)
+        const isFromDriftBottle =
+          d.messageInfo?.from.address === DRIFT_BOTTLE_ADDRESS
         if (!isSeen && isFromDriftBottle) {
           trackOpenDriftbottle()
         }
@@ -153,8 +146,8 @@ export const PreviewComponent: React.FC = () => {
     if (state) {
       return state
     }
-    if (data?.info) {
-      const { date, subject, to, cc, from, attachments, bcc } = data.info
+    if (data?.messageInfo) {
+      const { date, subject, to, cc, from, attachments, bcc } = data.messageInfo
 
       return {
         date,
@@ -175,7 +168,8 @@ export const PreviewComponent: React.FC = () => {
     return ''
   }, [data])
 
-  const isDriftBottleAddress = data?.info?.from.address === DRIFT_BOTTLE_ADDRESS
+  const isDriftBottleAddress =
+    data?.messageInfo?.from.address === DRIFT_BOTTLE_ADDRESS
 
   const driftBottleFrom = useMemo(() => getDriftBottleFrom(content), [content])
 
@@ -198,7 +192,6 @@ export const PreviewComponent: React.FC = () => {
           {
             state: {
               messageInfo: data?.messageInfo,
-              messsageContent: data?.messageContent,
             },
           }
         )
@@ -221,7 +214,6 @@ export const PreviewComponent: React.FC = () => {
           {
             state: {
               messageInfo: data?.messageInfo,
-              messsageContent: data?.messageContent,
             },
           }
         )
@@ -312,7 +304,7 @@ export const PreviewComponent: React.FC = () => {
     }
 
     return list.map((key) => buttonConfig[key])
-  }, [api, id, origin, data?.info])
+  }, [api, id, origin, data?.messageInfo])
 
   const onClickAvatar = (address: string) => {
     const realAddress = removeMailSuffix(address).toLowerCase()
