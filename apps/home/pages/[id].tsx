@@ -80,7 +80,7 @@ const Navbar: React.FC<{ address: string }> = ({ address }) => {
       <Flex className="nav">
         <NextLink href="/" passHref>
           <LinkButton>
-            <Logo direction="column" />
+            <Logo />
           </LinkButton>
         </NextLink>
         {isMounted ? (

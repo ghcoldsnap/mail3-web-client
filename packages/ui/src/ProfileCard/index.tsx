@@ -2,17 +2,14 @@ import { Box, Center, HStack, Image, Text } from '@chakra-ui/react'
 import React, { forwardRef } from 'react'
 import styled from '@emotion/styled'
 import QrCode from 'qrcode.react'
-import { Avatar, Button } from 'ui'
+import { Avatar, Button, Logo } from 'ui'
 import classNames from 'classnames'
 
-import { ReactComponent as LogoSvg } from 'assets/svg/logo-pure.svg'
-import _PngMailMeButton from './assets/mail3-button.png'
 import _PngBorder from './assets/border.png'
 import _PngAddressBorder from './assets/address-border.png'
 import _PngSeal from './assets/seal.png'
 import { unifyImage } from '../utils'
 
-const PngMailMeButton = unifyImage(_PngMailMeButton)
 const PngBorder = unifyImage(_PngBorder)
 const PngAddressBorder = unifyImage(_PngAddressBorder)
 const PngSeal = unifyImage(_PngSeal)
@@ -113,6 +110,7 @@ const Container = styled(Box)`
     left: 50%;
     margin-left: -125px;
     position: absolute;
+    text-align: center;
   }
 
   .avatar-wrap {
@@ -156,7 +154,12 @@ export const ProfileCard = forwardRef<HTMLDivElement, ProfileCardProps>(
         <Box className="content">
           <Center flexDirection="column">
             <Box pt="35px">
-              <LogoSvg />
+              <Logo
+                w="100px"
+                iconProps={{ w: '26px', h: '26px' }}
+                textProps={{ w: '67px', h: '20px', ml: '0' }}
+                justify="space-between"
+              />
             </Box>
             <Box mt="20px" className="avatar-wrap">
               <Box position="relative" zIndex={2}>
@@ -185,7 +188,15 @@ export const ProfileCard = forwardRef<HTMLDivElement, ProfileCardProps>(
             </Box>
 
             <Button className="button">
-              <Image src={PngMailMeButton} w="100%" height="100%" />
+              <Logo
+                textProps={{ color: '#fff' }}
+                isHiddenText
+                display="inline-flex"
+                w="30px"
+              />
+              <Box h="full" lineHeight="25px">
+                mail<sup>3</sup> me
+              </Box>
             </Button>
           </Center>
         </Box>
