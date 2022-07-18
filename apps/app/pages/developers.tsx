@@ -16,7 +16,10 @@ import { TrackEvent, useTrackClick } from 'hooks'
 import { InboxNav } from '../components/Inbox/Nav'
 import { PaperContainer } from '../components/PaperContainer'
 import DevelopersMail3MeButtonExamplePng from '../assets/developers-mail3-me-button-example.png'
-import { GITHUB_URL, MIRROR_URL } from '../constants'
+import {
+  GITHUB_MAIL3_ME_BUTTON_URL,
+  MAIL3_ME_BUTTON_MIRROR_URL,
+} from '../constants'
 import { GoToWriteMailButton } from '../components/GoToWriteMailButton'
 
 export const Developers: React.FC = () => {
@@ -96,7 +99,7 @@ export const Developers: React.FC = () => {
           >
             <Link
               className="item"
-              href={MIRROR_URL}
+              href={MAIL3_ME_BUTTON_MIRROR_URL}
               target="_blank"
               onClick={() => {
                 trackClickMmbMirror()
@@ -112,7 +115,7 @@ export const Developers: React.FC = () => {
             </Link>
             <Link
               className="item"
-              href={GITHUB_URL}
+              href={GITHUB_MAIL3_ME_BUTTON_URL}
               target="_blank"
               onClick={() => {
                 trackClickMmbGithub()
