@@ -21,11 +21,14 @@ import {
   MAIL3_ME_BUTTON_MIRROR_URL,
 } from '../constants'
 import { GoToWriteMailButton } from '../components/GoToWriteMailButton'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 export const Developers: React.FC = () => {
   const [t] = useTranslation('developers')
   const trackClickMmbMirror = useTrackClick(TrackEvent.ClickMmbMirror)
   const trackClickMmbGithub = useTrackClick(TrackEvent.ClickMmbGithub)
+  useDocumentTitle('Developers')
+
   return (
     <Box pt={{ base: '25px', md: '35px' }}>
       <PageContainer>
