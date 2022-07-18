@@ -122,7 +122,11 @@ export const Developers: React.FC = () => {
               }}
             >
               <GithubIcon w="28px" h="28px" />
-              <Box ml={{ base: '7px', md: '18px' }}>{t('github')}</Box>
+              <Box ml={{ base: '7px', md: '18px' }}>
+                {t('github.0')}
+                <sup>{t('github.1')}</sup>
+                {t('github.2')}
+              </Box>
               <RightArrowIcon
                 w={{ base: '20px', md: '24px' }}
                 h={{ base: '20px', md: '24px' }}
