@@ -106,7 +106,6 @@ const Container = styled(Box)`
 interface ProfileComponentProps {
   mailAddress: string
   address: string
-  mailSuffix: string
 }
 
 let homeUrl = ''
@@ -117,7 +116,6 @@ if (typeof window !== 'undefined') {
 export const ProfileComponent: React.FC<ProfileComponentProps> = ({
   mailAddress,
   address,
-  mailSuffix,
 }) => {
   const [t] = useTranslation('profile')
   const [t2] = useTranslation('common')
@@ -125,7 +123,6 @@ export const ProfileComponent: React.FC<ProfileComponentProps> = ({
   const trackTwitter = useTrackClick(TrackEvent.ClickProfileTwitter)
   const trackCopy = useTrackClick(TrackEvent.ClickProfileCopy)
   const trackCard = useTrackClick(TrackEvent.ClickProfileDownloadCard)
-  // const trackMailme = useTrackClick(TrackEvent.ClickProfileMailMe)
   const trackScoialDimensions = useTrackClick(
     TrackEvent.ClickProfileScoialPlatform
   )
@@ -232,7 +229,13 @@ export const ProfileComponent: React.FC<ProfileComponentProps> = ({
         </Box>
         <Box className="button-list">
           <Box className="button-wrap-mobile">
-            <Popover offset={[0, 10]} arrowSize={18} autoFocus closeOnBlur>
+            <Popover
+              offset={[0, 10]}
+              arrowSize={18}
+              autoFocus
+              closeOnBlur
+              strategy="fixed"
+            >
               <PopoverTrigger>
                 <Box p="10px">
                   <SvgMore />
@@ -314,10 +317,7 @@ export const ProfileComponent: React.FC<ProfileComponentProps> = ({
           </HStack>
         </Box>
         <Box className="address">
-          <Text className="p">
-            {address}
-            <span style={{ marginLeft: '-5px' }}>{` @${mailSuffix}`}</span>
-          </Text>
+          <Text className="p">{mailAddress}</Text>
         </Box>
         <Center mt="25px">
           <HStack spacing="24px">

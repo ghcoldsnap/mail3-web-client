@@ -13,6 +13,7 @@ import { UnReadPage } from '../pages/unread'
 import { TestingPage } from '../pages/testing'
 import { MessagePage } from '../pages/message/[id]'
 import { TrashPage } from '../pages/messages/trash'
+import { SetupSignaturePage } from '../pages/setup/signature'
 import { Developers } from '../pages/developers'
 
 interface Mail3RouterProps extends RouteProps {
@@ -71,7 +72,7 @@ export const routes: Mail3RouterProps[] = [
   {
     path: RoutePath.SetupSignature,
     key: 'setup-signature',
-    element: <SettingsSignaturePage />,
+    element: <SetupSignaturePage />,
   },
   {
     path: RoutePath.SetupShare,

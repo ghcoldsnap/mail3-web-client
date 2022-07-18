@@ -7,6 +7,7 @@ import { MailboxContainer } from '../components/Inbox'
 import { InboxNav } from '../components/Inbox/Nav'
 import { SubscriptionBody } from '../components/SubscriptionBody'
 import { GoToWriteMailButton } from '../components/GoToWriteMailButton'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 const NewPageContainer = styled(PageContainer)`
   @media (max-width: 600px) {
@@ -62,29 +63,32 @@ const Sticky: React.FC<StickyProps> = ({ children }) => {
   )
 }
 
-export const SubscriptionPage = () => (
-  <>
-    {/* <Head>
+export const SubscriptionPage = () => {
+  useDocumentTitle('Subscription')
+  return (
+    <>
+      {/* <Head>
         <title>Mail3: Subscription</title>
       </Head> */}
-    <Sticky>
-      <PageContainer>
-        <Navbar />
-      </PageContainer>
-    </Sticky>
-    <NewPageContainer>
-      <Box paddingTop={{ base: '25px', md: '35px' }}>
-        <Flex justify="space-between" pl="20px">
-          <InboxNav />
-          <GoToWriteMailButton />
-        </Flex>
+      <Sticky>
+        <PageContainer>
+          <Navbar />
+        </PageContainer>
+      </Sticky>
+      <NewPageContainer>
+        <Box paddingTop={{ base: '25px', md: '35px' }}>
+          <Flex justify="space-between" pl="20px">
+            <InboxNav />
+            <GoToWriteMailButton />
+          </Flex>
 
-        <MailboxContainer minH="700px">
-          <Box padding={{ base: '20px 30px 60px', md: '40px 64px' }}>
-            <SubscriptionBody />
-          </Box>
-        </MailboxContainer>
-      </Box>
-    </NewPageContainer>
-  </>
-)
+          <MailboxContainer minH="700px">
+            <Box padding={{ base: '20px 30px 60px', md: '40px 64px' }}>
+              <SubscriptionBody />
+            </Box>
+          </MailboxContainer>
+        </Box>
+      </NewPageContainer>
+    </>
+  )
+}

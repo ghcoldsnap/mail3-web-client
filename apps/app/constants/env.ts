@@ -35,6 +35,9 @@ export const OFFICE_ADDRESS_LIST = [
   'no-reply-pls.eth@mail3.me',
   'no-reply-pls.eth@imibao.net',
 
+  'MAILER-DAEMON@mail.imibao.net',
+  'MAILER-DAEMON@mail.mail3.me',
+
   `no-reply-pls.eth@${MAIL_SERVER_URL}`,
   `mail3.eth@${MAIL_SERVER_URL}`,
 ]
@@ -50,3 +53,7 @@ export const GITHUB_URL =
 
 export const MIRROR_URL =
   import.meta.env.NEXT_PUBLIC_MIRROR_URL || 'https://mirror.xyz/mail3.eth'
+
+export const IS_IPHONE =
+  navigator.userAgent.toLowerCase().includes('iphone') &&
+  !navigator.vendor.includes('Google')

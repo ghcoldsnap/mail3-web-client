@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
   Center,
   Checkbox,
@@ -43,7 +44,7 @@ import happySetupMascot from '../../assets/happy-setup-mascot.png'
 import { ReactComponent as RefreshSvg } from '../../assets/refresh.svg'
 import { RoutePath } from '../../route/path'
 import { Mascot } from './Mascot'
-import { MAIL_SERVER_URL } from '../../constants'
+import { IS_IPHONE, MAIL_SERVER_URL } from '../../constants'
 import { userPropertiesAtom } from '../../hooks/useLogin'
 import { Alias } from '../../api'
 import { RouterLink } from '../RouterLink'
@@ -113,6 +114,13 @@ const EmailSwitch: React.FC<EmailSwitchProps> = ({
     <Text fontSize="14px">{emailAddress}</Text>
     {isLoading ? (
       <Spinner />
+    ) : IS_IPHONE ? (
+      <Switch
+        colorScheme="deepBlue"
+        isReadOnly={isChecked}
+        isChecked={isChecked}
+        onChange={onChange(uuid, address)}
+      />
     ) : (
       <>
         <Switch
@@ -158,6 +166,8 @@ export const SettingAddress: React.FC = () => {
   const dialog = useDialog()
   const trackClickENSRefresh = useTrackClick(TrackEvent.ClickENSRefresh)
   const setUserProperties = useUpdateAtom(userPropertiesAtom)
+  const trackClickRegisterENS = useTrackClick(TrackEvent.ClickRegisterENS)
+  const trackNext = useTrackClick(TrackEvent.ClickAddressNext)
 
   const {
     data: ensNames,
@@ -260,7 +270,14 @@ export const SettingAddress: React.FC = () => {
         <Text fontSize={['14px', '14px', '18px']}>{t('address.desc')}</Text>
       </header>
       <FormControl maxW="480px">
-        <FormLabel fontSize="16px" mb="8px">
+        <FormLabel
+          fontSize="16px"
+          mb="8px"
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+          }}
+        >
           <Stack
             direction="row"
             spacing="16px"
@@ -334,7 +351,14 @@ export const SettingAddress: React.FC = () => {
                 i18nKey="address.registe-ens"
                 t={t}
                 components={{
-                  a: <Link isExternal href={ENS_DOMAIN} color="#4E52F5" />,
+                  a: (
+                    <Link
+                      isExternal
+                      onClick={() => trackClickRegisterENS()}
+                      href={ENS_DOMAIN}
+                      color="#4E52F5"
+                    />
+                  ),
                 }}
               />
             </Box>
@@ -343,7 +367,7 @@ export const SettingAddress: React.FC = () => {
         </Text>
       </FormControl>
       <Flex className="mascot">
-        <Mascot src={happySetupMascot.src} />
+        <Mascot src={happySetupMascot} />
       </Flex>
       {(router.pathname as any) !== RoutePath.Settings ? (
         <Center className="footer" w="full">
@@ -353,6 +377,7 @@ export const SettingAddress: React.FC = () => {
               color="white"
               w="250px"
               height="50px"
+              onClick={() => trackNext()}
               _hover={{
                 bg: 'brand.50',
               }}
