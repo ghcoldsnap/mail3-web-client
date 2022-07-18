@@ -1,4 +1,4 @@
-import { Button, CONTAINER_MAX_WIDTH, LogoAnimation } from 'ui'
+import { Button, LogoAnimation } from 'ui'
 import { Flex, Heading } from '@chakra-ui/react'
 import React from 'react'
 import NextLink from 'next/link'
@@ -12,7 +12,6 @@ export const WhitelistGuide = () => {
       direction="column"
       align="center"
       justify="center"
-      maxW={`${CONTAINER_MAX_WIDTH}px`}
       w="full"
       h="auto"
       pt={{ base: '100px', md: '164px' }}

@@ -59,7 +59,7 @@ export const MIRROR_URL =
   import.meta.env.NEXT_PUBLIC_MIRROR_URL || 'https://mirror.xyz/mail3.eth'
 
 export const MAIL3_ME_BUTTON_MIRROR_URL =
-  process.env.NEXT_PUBLIC_MAIL3_ME_BUTTON_MIRRIR_URL ||
+  import.meta.env.NEXT_PUBLIC_MAIL3_ME_BUTTON_MIRRIR_URL ||
   'https://mirror.xyz/mail3.eth/nTiZI4w3vB1BBjwc8ZLUHCJ2FPhaYJd-l7v62Tv_FY0'
 
 export const IS_IPHONE =
