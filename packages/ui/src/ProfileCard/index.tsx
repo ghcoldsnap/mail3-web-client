@@ -5,11 +5,13 @@ import QrCode from 'qrcode.react'
 import { Avatar, Button, Logo } from 'ui'
 import classNames from 'classnames'
 
+import _PngMail3MeButton from './assets/mail3-button.png'
 import _PngBorder from './assets/border.png'
 import _PngAddressBorder from './assets/address-border.png'
 import _PngSeal from './assets/seal.png'
 import { unifyImage } from '../utils'
 
+const PngMail3MeButton = unifyImage(_PngMail3MeButton)
 const PngBorder = unifyImage(_PngBorder)
 const PngAddressBorder = unifyImage(_PngAddressBorder)
 const PngSeal = unifyImage(_PngSeal)
@@ -111,6 +113,7 @@ const Container = styled(Box)`
     margin-left: -125px;
     position: absolute;
     text-align: center;
+    padding: 2% 0;
   }
 
   .avatar-wrap {
@@ -188,15 +191,13 @@ export const ProfileCard = forwardRef<HTMLDivElement, ProfileCardProps>(
             </Box>
 
             <Button className="button">
-              <Logo
-                textProps={{ color: '#fff' }}
-                isHiddenText
-                display="inline-flex"
-                w="30px"
+              <Image
+                src={PngMail3MeButton}
+                alt=""
+                w="auto"
+                h="full"
+                objectFit="cover"
               />
-              <Box h="full" lineHeight="25px">
-                mail<sup>3</sup> me
-              </Box>
             </Button>
           </Center>
         </Box>
