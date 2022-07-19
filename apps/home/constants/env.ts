@@ -27,7 +27,8 @@ export const MAIL3_ME_BUTTON_MIRROR_URL =
   process.env.NEXT_PUBLIC_MIRRIR_MAIL3_ME_BUTTON_URL ||
   'https://mirror.xyz/mail3.eth/nTiZI4w3vB1BBjwc8ZLUHCJ2FPhaYJd-l7v62Tv_FY0'
 
-export const GOOGLE_ANALYTICS_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
+export const GOOGLE_ANALYTICS_ID =
+  process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? 'G-1PW4LM5ETS'
 
 export const MAIL_SERVER_URL =
   process.env.NEXT_PUBLIC_MAIL_SERVER_URL || 'mail3.me'

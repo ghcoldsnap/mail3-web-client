@@ -27,6 +27,7 @@ export enum TrackEvent {
   // mail tracking
   OpenJoinMail3Dao = 'open_join_mail3_dao',
   OpenShowYourMail3NFT = 'open_show_your_mail3_nft',
+  OpenUpdateMail = 'open_update_mail',
   // connect wallet
   ConnectWallet = 'Mail3_app_home_click_connectwallet',
 
@@ -85,6 +86,10 @@ export enum TrackEvent {
 
   ClickENSRefresh = 'click_ENS_refresh',
 
+  // ipfs
+  clickDInfoBlockchainLink = 'click_dinfo_blockchain_link',
+  clickDInfoIpfsLink = 'click_dinfo_ipfs_link',
+
   // mmb
   ClickMmbMirror = 'click_mmb_mirror',
   ClickMmbGithub = 'click_mmb_github',
@@ -124,9 +129,10 @@ export enum ProfileScoialPlatformItem {
 
 export enum PersonnalCenter {
   Settings = 'Settings',
-  Profile = 'Profile',
-  CopyAddress = 'CopyAddress',
-  ChangeWallet = 'ChangeWallet',
+  MyProfileLink = 'My Profile Link',
+  MyMail3Address = 'My mail3 Address',
+  ChangeWallet = 'Change Wallet',
+  Logout = 'Logout',
 }
 
 export enum Mail3MenuItem {
