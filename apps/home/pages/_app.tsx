@@ -43,7 +43,7 @@ function Mail3({ Component, pageProps }: AppProps) {
           content="Mail3 is a crypto native communication protocol that promises security, privacy preservation and self-sovereign identity. It aims to be the infrastructure for web3 communication and the platform for valuable information such as relationships, reputation, and trust. "
         />
         <meta property="og:url" content="https://app.mail3.me" />
-        <meta property="og:image" content="https://mail3.me/preview.png?v2" />
+        <meta property="og:image" content="https://mail3.me/preview.png?v3" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@mail3dao" />
         <meta name="twitter:creator" content="@mail3dao" />
@@ -57,7 +57,7 @@ function Mail3({ Component, pageProps }: AppProps) {
         />
         <meta
           name="twitter:image:src"
-          content="https://mail3.me/preview.png?v2"
+          content="https://mail3.me/preview.png?v3"
         />
 
         <link rel="manifest" href="/manifest.json" />
