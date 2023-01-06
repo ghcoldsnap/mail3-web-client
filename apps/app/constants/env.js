@@ -110,5 +110,5 @@ export const UD_DOMAIN =
 export const AVATAR_TYPE =
   import.meta.env.NEXT_PUBLIC_AVATAR_TYPE || DefaultAvatarType.Normal
 
-envStorage.setCurrentAvatar(AVATAR_TYPE as DefaultAvatarType)
+envStorage.setCurrentAvatar(AVATAR_TYPE)
 envStorage.setServerUrl(SERVER_URL)
