@@ -105,12 +105,7 @@ export function copyTextFallback(data: string): void {
 }
 
 export async function copyText(s: string) {
-  try {
-    // eslint-disable-next-line compat/compat
-    await navigator.clipboard.writeText(s)
-  } catch (error) {
-    copyTextFallback(s)
-  }
+  copyTextFallback(s)
 }
 
 export const isHttpUriReg = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- ./?%&=]*)?/
