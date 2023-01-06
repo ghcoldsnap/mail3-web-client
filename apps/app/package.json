@@ -4,8 +4,9 @@
     "version": "0.1.0",
     "scripts": {
         "dev": "vite dev",
-        "build": "node ../../packages/scripts/robots-txt.js && vite build && vite build -c vite.sw.config.ts",
-        "start:prod": "node server/index.js",
+        "build": "echo 'I will never be called because the `vercel-build` script supersedes me'",
+        "vercel-build": "node ../../packages/scripts/robots-txt.js && vite build && vite build -c vite.sw.config.ts",
+        "start:localbuild": "node server/index.js",
         "start": "vite",
         "lint": "eslint .",
         "report": "REPORT=true vite build",
